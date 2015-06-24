@@ -1,0 +1,11 @@
+.*
+*/.*
+*.iml
+*.eml
+bin
+derby.log
+log
+project
+target
+test-output
+work
