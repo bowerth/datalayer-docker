@@ -6,7 +6,15 @@
 
 # Zeppelin Docker
 
-The Dockerfile is not yet committed - be patient...
+To build the docker image go in the zeppelin-docker repository and run:
+```
+sudo docker build -t datalayer/zeppelin:latest spark-1.3/
+```
+
+Then to launch the docker image:
+```
+sudo docker run -i -t -p 8080:8080 -p 8081:8081 datalayer/zeppelin
+```
 
 # License
 
