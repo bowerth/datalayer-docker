@@ -6,14 +6,15 @@
 
 # Zeppelin Docker
 
-To build the docker image go in the zeppelin-docker repository and run:
-```
-sudo docker build -t datalayer/zeppelin:latest spark-1.3/
-```
-
-Then to launch the docker image:
+To launch the docker image (it might take a while to download):
 ```
 sudo docker run -i -t -p 8080:8080 -p 8081:8081 datalayer/zeppelin
+```
+
+
+If you want to build your own docker image go in the zeppelin-docker repository and run:
+```
+sudo docker build -t datalayer/zeppelin:latest spark-1.3/
 ```
 
 # License
