@@ -119,7 +119,7 @@ RUN git pull
 
 RUN mvn clean \
     install \
-    -pl '!flink,!geode,!ignite,!phoenix,!postgresql,!tajo' \
+    -pl '!flink,!ignite,!phoenix,!postgresql,!tajo,!hive,!cassandra,!lens,!kylin' \
     -Phadoop-$HADOOP_PROFILE \
     -Dhadoop.version=$HADOOP_VERSION \
     -Pspark-$SPARK_PROFILE \
@@ -132,6 +132,9 @@ RUN mvn clean \
     -Dcheckstyle.skip=true \
     -DskipTests \
     "$@"
+
+RUN rm zeppelin-server/target/lib/jackson-*
+RUN rm zeppelin-zengine/target/lib/jackson-*
 
 COPY ./resources/zeppelin-env.sh $ZEPPELIN_HOME/conf/zeppelin-env.sh
 
