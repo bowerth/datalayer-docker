@@ -6,22 +6,39 @@
 
 # Zeppelin Docker
 
-launch the docker image (it might take a while to download) with `zeppelin-docker-run`.
+## Run
 
-Build your own docker image with `zeppelin-docker-build`.
+Get the Docker image with `docker pull datalayer/zeppelin` (it might take a while to download) and launch with `./zeppelin-docker-start`.
 
-# License
+## Configuration
 
-Copyright 2015 Datalayer http://datalayer.io
+Set environement variable to change behavior:
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
++ DOCKER_SPARK_MASTER = MASTER for Spark (default is `local[*]`).
++ DOCKER_ZEPPELIN_NOTEBOOK_DIR = Folder where the notes reside  (default is `/notebook`).
++ DOCKER_ZEPPELIN_PORT = The HTTP port (default is `8080`).
++ DOCKER_HADOOP_CONF_DIR = The folder for the Hadoop configuration file (default is `/etc/hadoop/conf`).
++ DOCKER_ZEPPELIN_LOG_CONSOLE = Run in attached mode with a tail of the log file (default is `true`).
 
-    http://www.apache.org/licenses/LICENSE-2.0
+Example: `DOCKER_ZEPPELIN_PORT=8081 ./zeppelin-docker-start`
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+## Build
+
+Build your own docker image with `./zeppelin-docker-build`.
+
+# Licensed under GNU General Public License
+
+Copyright (c) 2015 Datalayer (http://datalayer.io)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
