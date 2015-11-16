@@ -152,6 +152,8 @@ COPY ./webapp $ZEPPELIN_HOME/zeppelin-web/dist/
 RUN mkdir /notebook
 ADD notebook /notebook
 
+COPY ./resources/interpreter.json $ZEPPELIN_HOME/conf/interpreter.json
+
 ### DATASET ###
 
 RUN mkdir /dataset

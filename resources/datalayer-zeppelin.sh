@@ -25,8 +25,9 @@ $ZEPPELIN_HOME/bin/datalayer-echo-header.sh
 
 function print_info() {
 echo
-echo -e $YELLOW"Go to "$BOLD"http://localhost:8080"$NOBOLD" to play with the Apache Zeppelin Notebook."$NOCOLOR
-echo -e $YELLOW"Go to "$BOLD"http://localhost:4040"$NOBOLD" for the Spark consoled."$NOCOLOR
+echo -e $YELLOW"Go to "$BOLD"http://localhost:8080"$NOBOLD" and play with the Apache Zeppelin Notebook."$NOCOLOR
+echo
+echo -e $YELLOW"Go to "$BOLD"http://localhost:4040"$NOBOLD" to view Spark jobs."$NOCOLOR
 echo
 echo -e $YELLOW"Connect with "$BOLD"ssh root@localhost -p 2222"$NOBOLD" (password=datalayer)"$NOCOLOR
 echo
