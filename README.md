@@ -12,7 +12,7 @@ Get the Docker image with `docker pull datalayer/zeppelin` (it might take a whil
 
 ## Configuration
 
-Set environement variable to change behavior:
+Configure with environment variables:
 
 + DOCKER_SPARK_MASTER = MASTER for Spark (default is `local[*]`).
 + DOCKER_ZEPPELIN_NOTEBOOK_DIR = Folder where the notes reside  (default is `/notebook`).
@@ -21,6 +21,8 @@ Set environement variable to change behavior:
 + DOCKER_ZEPPELIN_LOG_CONSOLE = Run in attached mode with a tail of the log file (default is `true`).
 
 Example: `DOCKER_ZEPPELIN_PORT=8081 ./zeppelin-docker-start`
+
+PS: If you need to change the Hadoop configuration, you will have to rebuild the Docker image.
 
 ## Build
 
