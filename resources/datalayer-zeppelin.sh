@@ -29,7 +29,8 @@ echo -e $YELLOW"Go to "$BOLD"http://localhost:8080"$NOBOLD" and play with the Ap
 echo
 echo -e $YELLOW"Go to "$BOLD"http://localhost:4040"$NOBOLD" to view Spark jobs."$NOCOLOR
 echo
-echo -e $YELLOW"Connect with "$BOLD"ssh root@localhost -p 2222"$NOBOLD" (password=datalayer)"$NOCOLOR
+echo -e $YELLOW"Connect with "$BOLD"ssh root@localhost -p 2222"$NOBOLD$NOCOLOR
+echo -e $YELLOW"                     (password=datalayer)"$NOCOLOR
 echo
 echo -e $YELLOW"Type CTRL-C to terminate the process."$NOCOLOR
 echo
