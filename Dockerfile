@@ -150,7 +150,7 @@ COPY ./webapp $ZEPPELIN_HOME/zeppelin-web/dist/
 ### NOTEBOOK ###
 
 RUN mkdir /notebook
-ADD notebook /notebook
+ADD notebook/tutorial /notebook/tutorial
 
 COPY ./resources/interpreter.json $ZEPPELIN_HOME/conf/interpreter.json
 
