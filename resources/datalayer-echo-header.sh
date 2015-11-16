@@ -17,34 +17,14 @@
 # specific language governing permissions and limitations
 # under the License.
 
-source datalayer-cli-colors
+source datalayer-cli-colors.sh
 
-echo -e "$GREEN$BOLD"
-echo -e " Welcome to Datalayer, your easy path to Big Data Science."
-echo -e "             ___       __       __                 "
-echo -e "   _______  / _ \___ _/ /____ _/ /__ ___ _____ ____"
-echo -e "  _______  / // / _ \`/ __/ _ \`/ / _ \`/ // / -_) __/"
-echo -e " _______  /____/\_,_/\__/\_,_/_/\_,_/\_, /\__/_/   "
-echo -e "                                    /___/          "
-echo -e ""
-echo -e " http://datalayer.io    @datalayerio"
-echo -e " docker@datalayer.io"$NOBOLD$NOCOLOR
-echo -e ""
+echo -e $GREEN$BOLD""" Welcome to Apache Zeppelin Notebook on Docker provided by
+             ___       __       __
+   _______  / _ \___ _/ /____ _/ /__ ___ _____ ____
+  _______  / // / _ \`/ __/ _ \`/ / _ \`/ // / -_) __/
+ _______  /____/\_,_/\__/\_,_/_/\_,_/\_, /\__/_/
+                                    /___/
 
-if [ "$1" == "-v" ]
-then
-  datalayer-echo-platform
-  exit 0
-fi
-
-if [ "$1" == "version" ]
-then
-  datalayer-echo-platform
-  exit 0
-fi
-
-if [ "$1" == "help" ]
-then
-  datalayer-echo-help
-  exit 0
-fi
+ http://datalayer.io    @datalayerio
+ docker@datalayer.io"""$NOBOLD$NOCOLOR

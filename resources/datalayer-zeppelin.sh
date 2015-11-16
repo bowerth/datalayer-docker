@@ -21,13 +21,32 @@ source $ZEPPELIN_HOME/bin/datalayer-cli-colors.sh
 
 $ZEPPELIN_HOME/bin/datalayer-echo-header.sh
 
-echo -e $YELLOW"Open your browser on http://localhost:8080 to play with the Apache Zeppelin Notebook."
-echo -e "$NOCOLOR"
+/etc/init.d/ssh start > /dev/null
 
-echo -e $YELLOW"Type CTRL-C to terminate the process."
-echo -e "$NOCOLOR"
+function print_info() {
+echo
+echo -e $YELLOW"Go to "$BOLD"http://localhost:8080"$NOBOLD" to play with the Apache Zeppelin Notebook."$NOCOLOR
+echo -e $YELLOW"Go to "$BOLD"http://localhost:4040"$NOBOLD" for the Spark consoled."$NOCOLOR
+echo
+echo -e $YELLOW"Connect with "$BOLD"ssh root@localhost -p 2222"$NOBOLD" (password=datalayer)"$NOCOLOR
+echo
+echo -e $YELLOW"Type CTRL-C to terminate the process."$NOCOLOR
+echo
+}
 
-$ZEPPELIN_HOME/bin/zeppelin.sh
+echo
 
-echo -e $YELLOW"Bye bye..."
-echo -e "$NOCOLOR"
+if [ "$DOCKER_ZEPPELIN_LOG_CONSOLE" == "false" ]
+then
+  $ZEPPELIN_HOME/bin/zeppelin.sh start "$@"
+else
+  $ZEPPELIN_HOME/bin/zeppelin-daemon.sh start "$@"
+  print_info
+  tail -f $ZEPPELIN_HOME/logs/zeppelin.log
+fi
+
+echo
+echo
+echo -e $YELLOW"Bye bye Zeppelin user... Hope to seen you back soon!"$NOCOLOR
+echo
+echo
