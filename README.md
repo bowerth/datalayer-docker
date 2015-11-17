@@ -38,10 +38,6 @@ Example: `DOCKER_ZEPPELIN_PORT=8081 ./zeppelin-docker-start`
 
 PS: If you need to change the Hadoop configuration, you will have to rebuild the Docker image.
 
-## Build
-
-Build your own docker image with `./zeppelin-docker-build`.
-
 # License
 
 Copyright 2015 Datalayer http://datalayer.io
