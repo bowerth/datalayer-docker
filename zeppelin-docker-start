@@ -54,7 +54,9 @@ echo -e $NO_COLOR
 sudo docker run \
     -i \
     -t \
-    -p 2222:22 -p 4040:4040 -p 8080:8080 \
+    -p 2222:22 \
+    -p 4040:4040 \
+    -p 8080:8080 \
     -e DOCKER_ZEPPELIN_LOG_CONSOLE=$DOCKER_ZEPPELIN_LOG_CONSOLE \
     -e HADOOP_CONF_DIR=$DOCKER_HADOOP_CONF_DIR \
     -e ZEPPELIN_PORT=$DOCKER_ZEPPELIN_PORT \

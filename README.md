@@ -6,9 +6,23 @@
 
 # Zeppelin Docker
 
-## Run
+## Get the image from the Docker Repository
 
-Get the Docker image with `docker pull datalayer/zeppelin` (it might take a while to download) and launch with `./zeppelin-docker-start`.
+[Datalayer](http://datalayer.io) provides an up-to-date Docker image for [Apache Zeppelin](http://zeppelin.incubator.apache.org), the WEB Notebook for Big Data Science.
+
+In order to get the image, you can run with the appropriate rights:
+
+`docker pull datalayer/zeppelin`
+
+Run the Zeppelin notebook with:
+
+`docker run -it -p 2222:22 -p 8080:8080 -p 4040:4040 datalayer/zeppelin`
+
+and go to [http://localhost:8080](http://localhost:8080).
+
+## Build and Run
+
+Build the Docker image with `zeppelin-docker-build` and run with `zeppelin-docker-start`.
 
 ## Configuration
 
