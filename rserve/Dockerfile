@@ -91,8 +91,8 @@ RUN tar xvfz spark-1.5.2-bin-hadoop2.6.tgz
 
 ### ZEPPELIN ###
 
-ENV ZEPPELIN_REPO_URL      https://github.com/datalayer/zeppelin-R.git
-ENV ZEPPELIN_REPO_BRANCH   Rserve
+ENV ZEPPELIN_REPO_URL        https://github.com/datalayer/zeppelin-R.git
+ENV ZEPPELIN_REPO_BRANCH     rserve
 ENV ZEPPELIN_HOME            /opt/zeppelin
 ENV ZEPPELIN_CONF_DIR        $ZEPPELIN_HOME/conf
 ENV ZEPPELIN_NOTEBOOK_DIR    $ZEPPELIN_HOME/notebook
