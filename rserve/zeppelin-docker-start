@@ -62,5 +62,6 @@ sudo docker run \
     -e ZEPPELIN_PORT=$DOCKER_ZEPPELIN_PORT \
     -e ZEPPELIN_NOTEBOOK_DIR=$DOCKER_ZEPPELIN_NOTEBOOK_DIR \
     -e MASTER=$DOCKER_SPARK_MASTER \
+    --name zeppelin-rserve \
     datalayer/zeppelin-rserve \
     "$@"
