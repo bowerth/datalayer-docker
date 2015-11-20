@@ -8,7 +8,8 @@
 
 [Datalayer](http://datalayer.io) provides an up-to-date Docker image for [Apache Zeppelin](http://zeppelin.incubator.apache.org), the WEB Notebook for Big Data Science.
 
-+ [Master](https://hub.docker.com/r/datalayer/zeppelin/): The vanilla Apache Zeppelin.
-+ [Rserve](https://hub.docker.com/r/datalayer/zeppelin-rserve/): Apache Zeppelin with R interpreter based on Rserve.
++ [master](https://hub.docker.com/r/datalayer/zeppelin/): The vanilla Apache Zeppelin.
++ [rserve](https://hub.docker.com/r/datalayer/zeppelin-rserve/): Apache Zeppelin with R interpreter based on rserve (no scala/R binding for now).
++ [rscala](https://hub.docker.com/r/datalayer/zeppelin-rserve/): Apache Zeppelin with R interpreter based on rscala.
 
 Get the docker images from the online [Datalayer Docker Registry](https://hub.docker.com/u/datalayer).

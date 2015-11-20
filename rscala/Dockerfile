@@ -78,7 +78,7 @@ RUN ln -s $MAVEN_HOME /usr/maven
 
 ### R ###
 
-RUN apt-get install -y r-base r-cran-rserve r-cran-ggplot2 r-base-dev
+RUN apt-get install -y r-base r-cran-ggplot2 r-base-dev
 
 COPY resources/install.R /
 
@@ -92,7 +92,7 @@ RUN tar xvfz spark-1.5.2-bin-hadoop2.6.tgz
 ### ZEPPELIN ###
 
 ENV ZEPPELIN_REPO_URL        https://github.com/datalayer/zeppelin-R.git
-ENV ZEPPELIN_REPO_BRANCH     rserve
+ENV ZEPPELIN_REPO_BRANCH     rscala
 ENV ZEPPELIN_HOME            /opt/zeppelin
 ENV ZEPPELIN_CONF_DIR        $ZEPPELIN_HOME/conf
 ENV ZEPPELIN_NOTEBOOK_DIR    $ZEPPELIN_HOME/notebook
