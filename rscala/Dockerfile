@@ -170,8 +170,8 @@ COPY ./resources/interpreter.json $ZEPPELIN_HOME/conf/interpreter.json
 
 ### DATASET ###
 
-RUN mkdir /dataset
-ADD dataset /dataset
+# RUN mkdir /dataset
+# ADD dataset /dataset
 
 ### HADOOP ###
 
