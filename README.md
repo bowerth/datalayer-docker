@@ -10,6 +10,6 @@
 
 + [master](https://hub.docker.com/r/datalayer/zeppelin/): The vanilla Apache Zeppelin.
 + [rserve](https://hub.docker.com/r/datalayer/zeppelin-rserve/): Apache Zeppelin with R interpreter based on rserve (no scala/R binding for now).
-+ [rscala](https://hub.docker.com/r/datalayer/zeppelin-rserve/): Apache Zeppelin with R interpreter based on rscala.
++ [rscala](https://hub.docker.com/r/datalayer/zeppelin-rscala/): Apache Zeppelin with R interpreter based on rscala.
 
 Get the docker images from the online [Datalayer Docker Registry](https://hub.docker.com/u/datalayer).
