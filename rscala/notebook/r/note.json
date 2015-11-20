@@ -429,7 +429,7 @@
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%r \nSys.setenv(SPARK_HOME\u003d\"/opt/spark-1.5.0-bin-hadoop2.6\")\n.libPaths(c(file.path(Sys.getenv(\"SPARK_HOME\"), \"R\", \"lib\"), .libPaths()))\nlibrary(SparkR)\nsc \u003c- sparkR.init(master\u003d\"local\")\nsc\nsqlContext \u003c- sparkRSQL.init(jsc \u003d sc)\nsqlContext\nlocalDF \u003c- data.frame(name\u003dc(\"John\", \"Smith\", \"Sarah\"), age\u003dc(19, 23, 18))\ndf \u003c- createDataFrame(sqlContext, localDF)\nprintSchema(df)\n# head(df)",
+      "text": "%r \nSys.setenv(SPARK_HOME\u003d\"/opt/spark\")\n.libPaths(c(file.path(Sys.getenv(\"SPARK_HOME\"), \"R\", \"lib\"), .libPaths()))\nlibrary(SparkR)\nsc \u003c- sparkR.init(master\u003d\"local\")\nsc\nsqlContext \u003c- sparkRSQL.init(jsc \u003d sc)\nsqlContext\nlocalDF \u003c- data.frame(name\u003dc(\"John\", \"Smith\", \"Sarah\"), age\u003dc(19, 23, 18))\ndf \u003c- createDataFrame(sqlContext, localDF)\nprintSchema(df)\n# head(df)",
       "dateUpdated": "Nov 20, 2015 2:58:26 PM",
       "config": {
         "colWidth": 6.0,

@@ -132,8 +132,8 @@ RUN mvn clean \
     "$@"
 
 # Temporary fix to deal with conflicting akka provided jackson jars.
-RUN rm zeppelin-server/target/lib/jackson-*
-RUN rm zeppelin-zengine/target/lib/jackson-*
+# RUN rm zeppelin-server/target/lib/jackson-*
+# RUN rm zeppelin-zengine/target/lib/jackson-*
 
 COPY ./resources/datalayer-cli-colors.sh $ZEPPELIN_HOME/bin/datalayer-cli-colors.sh
 COPY ./resources/datalayer-echo-header.sh $ZEPPELIN_HOME/bin/datalayer-echo-header.sh
@@ -148,10 +148,10 @@ RUN mkdir /opt/zeppelin/run
 
 ### SPARK ###
 
-curl -sL --retry 3 \
-  "http://mirrors.ibiblio.org/apache/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop$HADOOP_PROFILE.tgz" \
+RUN curl -sL --retry 3 \
+  "http://archive.apache.org/dist/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop$HADOOP_PROFILE.tgz" \
   | gunzip \
-  | tar x -C /opt/
+  | tar x -C /opt/ \
   && ln -s /opt/spark-$SPARK_VERSION-bin-hadoop$HADOOP_PROFILE /opt/spark \
   && rm -rf /opt/spark/examples \
   && rm /opt/spark/lib/spark-examples*.jar
