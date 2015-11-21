@@ -39,8 +39,6 @@ echo
 
 echo
 
-export SPARK_HOME=/opt/spark
-
 if [ "$DOCKER_ZEPPELIN_LOG_CONSOLE" == "false" ]
 then
   $ZEPPELIN_HOME/bin/zeppelin.sh start "$@"

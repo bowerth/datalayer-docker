@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-FROM ubuntu:14.04
+FROM ubuntu:15.10
 
 MAINTAINER Datalayer <docker@datalayer.io>
 
@@ -67,10 +67,9 @@ RUN curl -sL --retry 3 --insecure \
   --header "Cookie: oraclelicense=accept-securebackup-cookie;" \
   "http://download.oracle.com/otn-pub/java/jdk/8u31-b13/server-jre-8u31-linux-x64.tar.gz" \
   | gunzip \
-  | tar x -C /usr/
-
-ENV JAVA_HOME /usr/jdk1.8.0_31
-RUN ln -s $JAVA_HOME /usr/java
+  | tar x -C /opt/
+ENV JAVA_HOME /opt/jdk1.8.0_31
+RUN ln -s $JAVA_HOME /opt/java
 ENV PATH $PATH:$JAVA_HOME/bin
 
 ### PYTHON ###
@@ -82,18 +81,29 @@ RUN apt-get install -y python-pip python-matplotlib ipython python-pandas python
 ### MAVEN ###
 
 ENV MAVEN_VERSION 3.3.1
-ENV MAVEN_HOME /usr/apache-maven-$MAVEN_VERSION
+ENV MAVEN_HOME /opt/apache-maven-$MAVEN_VERSION
 ENV PATH $PATH:$MAVEN_HOME/bin
 RUN curl -sL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz \
   | gunzip \
-  | tar x -C /usr/
-RUN ln -s $MAVEN_HOME /usr/maven
+  | tar x -C /opt/
+RUN ln -s $MAVEN_HOME /opt/maven
 
 ### R ###
 
 RUN apt-get install -y r-base r-cran-ggplot2 r-base-dev
-COPY resources/install.R /
-RUN R CMD BATCH /install.R /install.R.out
+COPY resources/install-rscala.R /
+RUN R CMD BATCH /install-rscala.R /install-rscala.R.out
+
+### SCALA ###
+
+WORKDIR /opt
+
+RUN curl http://www.scala-lang.org/files/archive/scala-2.10.4.tgz -o scala-2.10.4.tgz
+RUN tar xvfz scala-2.10.4.tgz
+RUN rm scala-2.10.4.tgz
+
+ENV SCALA_HOME /opt/scala-2.10.4
+ENV PATH $SCALA_HOME/bin:$PATH
 
 ### SPARK ###
 
@@ -102,10 +112,14 @@ WORKDIR /opt
 RUN curl -sL --retry 3 \
   "http://archive.apache.org/dist/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop$HADOOP_PROFILE.tgz" \
   | gunzip \
-  | tar x -C /opt/  \
-  && ln -s /opt/spark-$SPARK_VERSION-bin-hadoop$HADOOP_PROFILE /opt/spark \
-  && rm -rf /opt/spark/examples \
-  && rm /opt/spark/lib/spark-examples*.jar
+  | tar x -C /opt/
+#  && ln -s /opt/spark-$SPARK_VERSION-bin-hadoop$HADOOP_PROFILE /opt/spark
+#  && rm -rf /opt/spark/examples \
+#  && rm /opt/spark/lib/spark-examples*.jar
+
+RUN mv /opt/spark-$SPARK_VERSION-bin-hadoop$HADOOP_PROFILE /opt/spark
+
+ENV SPARK_HOME /opt/spark
 
 # RUN curl http://apache.belnet.be/spark/spark-1.5.2/spark-1.5.2-bin-hadoop2.6.tgz -o spark-1.5.2-bin-hadoop2.6.tgz
 # RUN tar xvfz spark-1.5.2-bin-hadoop2.6.tgz

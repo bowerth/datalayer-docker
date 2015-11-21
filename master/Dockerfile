@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-FROM ubuntu:14.04
+FROM ubuntu:15.10
 
 MAINTAINER Datalayer <docker@datalayer.io>
 
@@ -31,6 +31,19 @@ RUN apt-get install -y git wget unzip curl  \
 
 # libfontconfig is needed for grunt phantomjs...
 RUN apt-get install -y libfontconfig
+
+ENV ZEPPELIN_REPO_URL        https://github.com/apache/incubator-zeppelin.git
+ENV ZEPPELIN_REPO_BRANCH     master
+ENV ZEPPELIN_HOME            /opt/zeppelin
+ENV ZEPPELIN_CONF_DIR        $ZEPPELIN_HOME/conf
+ENV ZEPPELIN_NOTEBOOK_DIR    $ZEPPELIN_HOME/notebook
+ENV ZEPPELIN_PORT            8080
+ENV SCALA_BINARY_VERSION     2.10
+ENV SCALA_VERSION            $SCALA_BINARY_VERSION.4
+ENV SPARK_PROFILE            1.5
+ENV SPARK_VERSION            1.5.1
+ENV HADOOP_PROFILE           2.6
+ENV HADOOP_VERSION           2.7.1
 
 ### SSH ###
 
@@ -55,7 +68,6 @@ RUN curl -sL --retry 3 --insecure \
   "http://download.oracle.com/otn-pub/java/jdk/8u31-b13/server-jre-8u31-linux-x64.tar.gz" \
   | gunzip \
   | tar x -C /usr/
-
 ENV JAVA_HOME /usr/jdk1.8.0_31
 RUN ln -s $JAVA_HOME /usr/java
 ENV PATH $PATH:$JAVA_HOME/bin
@@ -73,23 +85,22 @@ ENV MAVEN_HOME /usr/apache-maven-$MAVEN_VERSION
 ENV PATH $PATH:$MAVEN_HOME/bin
 RUN curl -sL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz \
   | gunzip \
-  | tar x -C /usr/
-RUN ln -s $MAVEN_HOME /usr/maven
+  | tar x -C /opt/
+RUN ln -s $MAVEN_HOME /opt/maven
+
+### SPARK ###
+
+WORKDIR /opt
+
+RUN curl -sL --retry 3 \
+  "http://archive.apache.org/dist/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop$HADOOP_PROFILE.tgz" \
+  | gunzip \
+  | tar x -C /opt/  \
+  && ln -s /opt/spark-$SPARK_VERSION-bin-hadoop$HADOOP_PROFILE /opt/spark \
+  && rm -rf /opt/spark/examples \
+  && rm /opt/spark/lib/spark-examples*.jar
 
 ### ZEPPELIN ###
-
-ENV ZEPPELIN_REPO_URL        https://github.com/apache/incubator-zeppelin.git
-ENV ZEPPELIN_REPO_BRANCH     master
-ENV ZEPPELIN_HOME            /opt/zeppelin
-ENV ZEPPELIN_CONF_DIR        $ZEPPELIN_HOME/conf
-ENV ZEPPELIN_NOTEBOOK_DIR    $ZEPPELIN_HOME/notebook
-ENV ZEPPELIN_PORT            8080
-ENV SCALA_BINARY_VERSION     2.10
-ENV SCALA_VERSION            $SCALA_BINARY_VERSION.4
-ENV SPARK_PROFILE            1.5
-ENV SPARK_VERSION            1.5.1
-ENV HADOOP_PROFILE           2.6
-ENV HADOOP_VERSION           2.7.1
 
 ENV PATH $ZEPPELIN_HOME/zeppelin-web/node:$PATH
 ENV PATH $ZEPPELIN_HOME/zeppelin-web/node_modules/grunt-cli/bin:$PATH
@@ -132,16 +143,6 @@ ENV PATH $ZEPPELIN_HOME/bin:$PATH
 
 RUN mkdir /opt/zeppelin/logs
 RUN mkdir /opt/zeppelin/run
-
-### SPARK ###
-
-# curl -sL --retry 3 \
-#   "http://mirrors.ibiblio.org/apache/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop$HADOOP_PROFILE.tgz" \
-#   | gunzip \
-#   | tar x -C /usr/
-#   && ln -s /usr/spark-$SPARK_VERSION-bin-hadoop$HADOOP_PROFILE /usr/spark \
-#   && rm -rf /usr/spark/examples \
-#   && rm /usr/spark/lib/spark-examples*.jar
 
 ### WEBAPP ###
 
