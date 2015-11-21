@@ -8,6 +8,8 @@
 
 # Zeppelin R Docker Image
 
+## !!!! Not fully operational, on some Docker instance, the rscala socket is not responding !!!
+
 ## Get the image from the Docker Repository
 
 In order to get the image, you can run with the appropriate rights:
