@@ -32,6 +32,19 @@ RUN apt-get install -y git wget unzip curl  \
 # libfontconfig is needed for grunt phantomjs...
 RUN apt-get install -y libfontconfig
 
+ENV ZEPPELIN_REPO_URL        https://github.com/datalayer/zeppelin-R.git
+ENV ZEPPELIN_REPO_BRANCH     rscala
+ENV ZEPPELIN_HOME            /opt/zeppelin
+ENV ZEPPELIN_CONF_DIR        $ZEPPELIN_HOME/conf
+ENV ZEPPELIN_NOTEBOOK_DIR    $ZEPPELIN_HOME/notebook
+ENV ZEPPELIN_PORT            8080
+ENV SCALA_BINARY_VERSION     2.10
+ENV SCALA_VERSION            $SCALA_BINARY_VERSION.4
+ENV SPARK_PROFILE            1.5
+ENV SPARK_VERSION            1.5.1
+ENV HADOOP_PROFILE           2.6
+ENV HADOOP_VERSION           2.7.1
+
 ### SSH ###
 
 RUN mkdir /var/run/sshd
@@ -79,30 +92,25 @@ RUN ln -s $MAVEN_HOME /usr/maven
 ### R ###
 
 RUN apt-get install -y r-base r-cran-ggplot2 r-base-dev
-
 COPY resources/install.R /
-
 RUN R CMD BATCH /install.R /install.R.out
+
+### SPARK ###
 
 WORKDIR /opt
 
-RUN curl http://apache.belnet.be/spark/spark-1.5.2/spark-1.5.2-bin-hadoop2.6.tgz -o spark-1.5.2-bin-hadoop2.6.tgz
-RUN tar xvfz spark-1.5.2-bin-hadoop2.6.tgz
+RUN curl -sL --retry 3 \
+  "http://archive.apache.org/dist/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop$HADOOP_PROFILE.tgz" \
+  | gunzip \
+  | tar x -C /opt/  \
+  && ln -s /opt/spark-$SPARK_VERSION-bin-hadoop$HADOOP_PROFILE /opt/spark \
+  && rm -rf /opt/spark/examples \
+  && rm /opt/spark/lib/spark-examples*.jar
+
+# RUN curl http://apache.belnet.be/spark/spark-1.5.2/spark-1.5.2-bin-hadoop2.6.tgz -o spark-1.5.2-bin-hadoop2.6.tgz
+# RUN tar xvfz spark-1.5.2-bin-hadoop2.6.tgz
 
 ### ZEPPELIN ###
-
-ENV ZEPPELIN_REPO_URL        https://github.com/datalayer/zeppelin-R.git
-ENV ZEPPELIN_REPO_BRANCH     rscala
-ENV ZEPPELIN_HOME            /opt/zeppelin
-ENV ZEPPELIN_CONF_DIR        $ZEPPELIN_HOME/conf
-ENV ZEPPELIN_NOTEBOOK_DIR    $ZEPPELIN_HOME/notebook
-ENV ZEPPELIN_PORT            8080
-ENV SCALA_BINARY_VERSION     2.10
-ENV SCALA_VERSION            $SCALA_BINARY_VERSION.4
-ENV SPARK_PROFILE            1.5
-ENV SPARK_VERSION            1.5.1
-ENV HADOOP_PROFILE           2.6
-ENV HADOOP_VERSION           2.7.1
 
 ENV PATH $ZEPPELIN_HOME/zeppelin-web/node:$PATH
 ENV PATH $ZEPPELIN_HOME/zeppelin-web/node_modules/grunt-cli/bin:$PATH
@@ -145,16 +153,6 @@ ENV PATH $ZEPPELIN_HOME/bin:$PATH
 
 RUN mkdir /opt/zeppelin/logs
 RUN mkdir /opt/zeppelin/run
-
-### SPARK ###
-
-RUN curl -sL --retry 3 \
-  "http://archive.apache.org/dist/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop$HADOOP_PROFILE.tgz" \
-  | gunzip \
-  | tar x -C /opt/  \
-  && ln -s /opt/spark-$SPARK_VERSION-bin-hadoop$HADOOP_PROFILE /opt/spark \
-  && rm -rf /opt/spark/examples \
-  && rm /opt/spark/lib/spark-examples*.jar
 
 ### WEBAPP ###
 
