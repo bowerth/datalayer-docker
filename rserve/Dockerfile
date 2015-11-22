@@ -96,6 +96,8 @@ RUN R CMD BATCH /install-rserve.R /install-rserve.R.out
 
 ### SPARK ###
 
+RUN git config --global url."https://".insteadOf git://
+
 WORKDIR /opt
 
 RUN curl -sL --retry 3 \
@@ -115,10 +117,10 @@ ENV SPARK_HOME /opt/spark
 
 ### ZEPPELIN ###
 
+WORKDIR /opt
+
 ENV PATH $ZEPPELIN_HOME/zeppelin-web/node:$PATH
 ENV PATH $ZEPPELIN_HOME/zeppelin-web/node_modules/grunt-cli/bin:$PATH
-
-RUN git config --global url."https://".insteadOf git://
 
 RUN git clone $ZEPPELIN_REPO_URL $ZEPPELIN_HOME
 
