@@ -429,7 +429,7 @@
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%r \nSys.setenv(SPARK_HOME\u003d\"/opt/spark\")\n.libPaths(c(file.path(Sys.getenv(\"SPARK_HOME\"), \"R\", \"lib\"), .libPaths()))\nlibrary(SparkR)\nsc \u003c- sparkR.init(master\u003d\"local\")\nsc\nsqlContext \u003c- sparkRSQL.init(jsc \u003d sc)\nsqlContext\nlocalDF \u003c- data.frame(name\u003dc(\"John\", \"Smith\", \"Sarah\"), age\u003dc(19, 23, 18))\ndf \u003c- createDataFrame(sqlContext, localDF)\nprintSchema(df)\n# head(df)",
+      "text": "%r \nsc\nsqlContext\nlocalDF \u003c- data.frame(name\u003dc(\"John\", \"Smith\", \"Sarah\"), age\u003dc(19, 23, 18))\ndf \u003c- createDataFrame(sqlContext, localDF)\nprintSchema(df)\n# head(df)",
       "dateUpdated": "Nov 20, 2015 2:58:26 PM",
       "config": {
         "colWidth": 6.0,
@@ -461,7 +461,7 @@
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "%r \nsqlContext \u003c- sparkRSQL.init(jsc \u003d sc)\nlocalDF \u003c- data.frame(name\u003dc(\"John\", \"Smith\", \"Sarah\"), age\u003dc(19, 23, 18))\ndf \u003c- createDataFrame(sqlContext, localDF)\nprintSchema(df)\n# head(df)\n# sparkR.stop()",
+      "text": "%r \nlocalDF \u003c- data.frame(name\u003dc(\"John\", \"Smith\", \"Sarah\"), age\u003dc(19, 23, 18))\ndf \u003c- createDataFrame(sqlContext, localDF)\nprintSchema(df)\n# head(df)\n# sparkR.stop()",
       "dateUpdated": "Nov 20, 2015 2:58:28 PM",
       "config": {
         "colWidth": 6.0,
@@ -506,7 +506,7 @@
     }
   ],
   "name": "R Tutorial",
-  "id": "r",
+  "id": "r-tutorial",
   "angularObjects": {
     "2B7199TE7": [],
     "2B4M18KJE": [],

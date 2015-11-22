@@ -25,7 +25,7 @@ ENV PATH .:$PATH
 
 RUN apt-get update
 
-RUN apt-get install -y git wget unzip curl  \
+RUN apt-get install -y vim git wget unzip curl  \
   net-tools build-essential npm python python-setuptools \
   python-dev python-numpy openssh-server sysstat
 
@@ -165,7 +165,7 @@ COPY ./webapp $ZEPPELIN_HOME/zeppelin-web/dist/
 
 RUN mkdir /notebook
 ADD notebook/tutorial /notebook/tutorial
-ADD notebook/r /notebook/r
+ADD notebook/r-tutorial /notebook/r-tutorial
 
 COPY ./resources/interpreter.json $ZEPPELIN_HOME/conf/interpreter.json
 

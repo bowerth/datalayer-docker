@@ -25,7 +25,7 @@ ENV PATH .:$PATH
 
 RUN apt-get update
 
-RUN apt-get install -y git wget unzip curl  \
+RUN apt-get install -y vim git wget unzip curl  \
   net-tools build-essential npm python python-setuptools \
   python-dev python-numpy openssh-server sysstat
 
@@ -96,14 +96,13 @@ RUN R CMD BATCH /install-rscala.R /install-rscala.R.out
 
 ### SCALA ###
 
-WORKDIR /opt
+# WORKDIR /opt
+# RUN curl http://www.scala-lang.org/files/archive/scala-2.10.4.tgz -o scala-2.10.4.tgz
+# RUN tar xvfz scala-2.10.4.tgz
+# RUN rm scala-2.10.4.tgz
 
-RUN curl http://www.scala-lang.org/files/archive/scala-2.10.4.tgz -o scala-2.10.4.tgz
-RUN tar xvfz scala-2.10.4.tgz
-RUN rm scala-2.10.4.tgz
-
-ENV SCALA_HOME /opt/scala-2.10.4
-ENV PATH $SCALA_HOME/bin:$PATH
+# ENV SCALA_HOME /opt/scala-2.10.4
+# ENV PATH $SCALA_HOME/bin:$PATH
 
 ### SPARK ###
 
@@ -176,7 +175,7 @@ COPY ./webapp $ZEPPELIN_HOME/zeppelin-web/dist/
 
 RUN mkdir /notebook
 ADD notebook/tutorial /notebook/tutorial
-ADD notebook/r /notebook/r
+ADD notebook/r-tutorial /notebook/r-tutorial
 
 COPY ./resources/interpreter.json $ZEPPELIN_HOME/conf/interpreter.json
 

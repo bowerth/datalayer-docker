@@ -6,7 +6,7 @@
 
 [![R](http://datalayer.io/ext/images/logo-R-200.png)](http://cran.r-project.org)
 
-# Zeppelin R Docker Image
+# Zeppelin R Docker Image (based on rscala)
 
 ## Get the image from the Docker Repository
 
@@ -20,7 +20,7 @@ Run the Zeppelin notebook with:
 
 and go to [http://localhost:8080](http://localhost:8080).
 
-Read more on the online [Datalayer Docker Registry](https://hub.docker.com/u/datalayer).
+Read more on the online [Datalayer Docker Registry](https://hub.docker.com/u/datalayer/zeppelin-rscala).
 
 ## Build and Run
 

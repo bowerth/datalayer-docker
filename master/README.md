@@ -20,7 +20,7 @@ Run the Zeppelin notebook with:
 
 and go to [http://localhost:8080](http://localhost:8080).
 
-Read more on the online [Datalayer Docker Registry](https://hub.docker.com/u/datalayer).
+Read more on the online [Datalayer Docker Registry](https://hub.docker.com/u/datalayer/zeppelin/).
 
 ## Build and Run
 
