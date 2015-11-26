@@ -67,9 +67,9 @@ RUN curl -sL --retry 3 --insecure \
   --header "Cookie: oraclelicense=accept-securebackup-cookie;" \
   "http://download.oracle.com/otn-pub/java/jdk/8u31-b13/server-jre-8u31-linux-x64.tar.gz" \
   | gunzip \
-  | tar x -C /usr/
-ENV JAVA_HOME /usr/jdk1.8.0_31
-RUN ln -s $JAVA_HOME /usr/java
+  | tar x -C /opt/
+ENV JAVA_HOME /opt/jdk1.8.0_31
+RUN ln -s $JAVA_HOME /opt/java
 ENV PATH $PATH:$JAVA_HOME/bin
 
 ### PYTHON ###
@@ -81,7 +81,7 @@ RUN apt-get install -y python-pip python-matplotlib ipython python-pandas python
 ### MAVEN ###
 
 ENV MAVEN_VERSION 3.3.1
-ENV MAVEN_HOME /usr/apache-maven-$MAVEN_VERSION
+ENV MAVEN_HOME /opt/apache-maven-$MAVEN_VERSION
 ENV PATH $PATH:$MAVEN_HOME/bin
 RUN curl -sL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz \
   | gunzip \
@@ -153,7 +153,8 @@ COPY ./webapp $ZEPPELIN_HOME/zeppelin-web/dist/
 RUN mkdir /notebook
 ADD notebook/tutorial /notebook/tutorial
 
-COPY ./resources/interpreter.json $ZEPPELIN_HOME/conf/interpreter.json
+# Don't add interpreter.json @see https://github.com/datalayer/zeppelin-docker/issues/1
+# COPY ./resources/interpreter.json $ZEPPELIN_HOME/conf/interpreter.json
 
 ### DATASET ###
 

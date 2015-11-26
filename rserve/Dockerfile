@@ -169,7 +169,8 @@ RUN mkdir /notebook
 ADD notebook/tutorial /notebook/tutorial
 ADD notebook/r-tutorial /notebook/r-tutorial
 
-COPY ./resources/interpreter.json $ZEPPELIN_HOME/conf/interpreter.json
+# Don't add interpreter.json @see https://github.com/datalayer/zeppelin-docker/issues/1
+# COPY ./resources/interpreter.json $ZEPPELIN_HOME/conf/interpreter.json
 
 ### DATASET ###
 
