@@ -73,6 +73,8 @@ Once done, `%r library(ff)` is working in the notebook.
 
 # Licensed under GNU General Public License
 
+Due to Rserve license, this project is licesened under GPL.
+
 Copyright (c) 2016 Datalayer (http://datalayer.io)
 
 This program is free software: you can redistribute it and/or modify
