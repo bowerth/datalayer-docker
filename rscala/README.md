@@ -40,6 +40,37 @@ Example: `DOCKER_ZEPPELIN_PORT=8081 ./zeppelin-docker-start`
 
 PS: If you need to change the Hadoop configuration, you will have to rebuild the Docker image.
 
+## R Libraries
+
+The Docker image comes with the following R libraries
+
++ knitr
++ glmnet
++ pROC
++ data.table
++ caret
++ sqldf
++ wordcloud
++ devtools
++ rscala
+
+If you want to install additional libraries (for example ff, a memory-efficient storage of large data on disk and fast access functions)
+
+Option 1
+
+Type `%r install.packages("ff", repos = "http://cran.us.r-project.org")` in a parapgraph of the notebook and run the paragraph.
+
+
+Option 2: Run from the shell (password in `datalayer`).
+
+```
+ssh root@localhost -p 2222 """R --no-save <<RSCRIPT
+install.packages(\"ff\", repos = \"http://cran.us.r-project.org\")
+RSCRIPT"""
+```
+
+Once done, `%r library(ff)` is working in the notebook.
+
 # Licensed under GNU General Public License
 
 Copyright (c) 2016 Datalayer (http://datalayer.io)
