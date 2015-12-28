@@ -6,21 +6,21 @@
 
 [![R](http://datalayer.io/ext/images/logo-R-200.png)](http://cran.r-project.org)
 
-# Zeppelin R Docker Image (based on Rserve)
+# Zeppelin R Docker Image (based on rscala)
 
 ## Get the image from the Docker Repository
 
 In order to get the image, you can run with the appropriate rights:
 
-`docker pull datalayer/zeppelin-rserve`
+`docker pull datalayer/zeppelin-rscala`
 
 Run the Zeppelin notebook with:
 
-`docker run -it -p 2222:22 -p 8080:8080 -p 4040:4040 datalayer/zeppelin-rserve`
+`docker run -it -p 2222:22 -p 8080:8080 -p 4040:4040 datalayer/zeppelin-rscala`
 
 and go to [http://localhost:8080](http://localhost:8080).
 
-Read more on the online [Datalayer Docker Registry](https://hub.docker.com/u/datalayer/zeppelin-rserve).
+Read more on the online [Datalayer Docker Registry](https://hub.docker.com/u/datalayer/zeppelin-rscala).
 
 ## Build and Run
 
@@ -60,7 +60,6 @@ Option 1
 
 Type `%r install.packages("ff", repos = "http://cran.us.r-project.org")` in a parapgraph of the notebook and run the paragraph.
 
-
 Option 2: Run from the shell (password in `datalayer`).
 
 ```
@@ -72,8 +71,6 @@ RSCRIPT"""
 Once done, `%r library(ff)` is working in the notebook.
 
 # Licensed under GNU General Public License
-
-Due to Rserve license, this project is licesened under GPL.
 
 Copyright (c) 2016 Datalayer (http://datalayer.io)
 

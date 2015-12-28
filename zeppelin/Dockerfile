@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-FROM ubuntu:15.10
+FROM ubuntu:14.04
 
 MAINTAINER Datalayer <docker@datalayer.io>
 
@@ -25,15 +25,15 @@ ENV PATH .:$PATH
 
 RUN apt-get update
 
-RUN apt-get install -y vim git wget unzip curl  \
+RUN apt-get install -y git wget unzip curl  \
   net-tools build-essential npm python python-setuptools \
   python-dev python-numpy openssh-server sysstat
 
 # libfontconfig is needed for grunt phantomjs...
 RUN apt-get install -y libfontconfig
 
-ENV ZEPPELIN_REPO_URL        https://github.com/datalayer/zeppelin-R.git
-ENV ZEPPELIN_REPO_BRANCH     rscala
+ENV ZEPPELIN_REPO_URL        https://github.com/apache/incubator-zeppelin.git
+ENV ZEPPELIN_REPO_BRANCH     master
 ENV ZEPPELIN_HOME            /opt/zeppelin
 ENV ZEPPELIN_CONF_DIR        $ZEPPELIN_HOME/conf
 ENV ZEPPELIN_NOTEBOOK_DIR    $ZEPPELIN_HOME/notebook
@@ -74,9 +74,9 @@ ENV PATH $PATH:$JAVA_HOME/bin
 
 ### PYTHON ###
 
-RUN easy_install py4j pattern pandasql numpy sympy
-RUN apt-get install -y python-pip python-matplotlib ipython python-pandas python-nose
-# scipy
+RUN apt-get install -y python-pip python-matplotlib python-pandas ipython python-nose
+# RUN apt-get install -y scipy
+RUN easy_install py4j pandas pattern pandasql sympy
 
 ### MAVEN ###
 
@@ -88,22 +88,6 @@ RUN curl -sL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binarie
   | tar x -C /opt/
 RUN ln -s $MAVEN_HOME /opt/maven
 
-### R ###
-
-RUN apt-get install -y r-base r-cran-ggplot2 r-base-dev
-COPY resources/install-rscala.R /
-RUN R CMD BATCH /install-rscala.R /install-rscala.R.out
-
-### SCALA ###
-
-# WORKDIR /opt
-# RUN curl http://www.scala-lang.org/files/archive/scala-2.10.4.tgz -o scala-2.10.4.tgz
-# RUN tar xvfz scala-2.10.4.tgz
-# RUN rm scala-2.10.4.tgz
-
-# ENV SCALA_HOME /opt/scala-2.10.4
-# ENV PATH $SCALA_HOME/bin:$PATH
-
 ### SPARK ###
 
 WORKDIR /opt
@@ -111,17 +95,10 @@ WORKDIR /opt
 RUN curl -sL --retry 3 \
   "http://archive.apache.org/dist/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop$HADOOP_PROFILE.tgz" \
   | gunzip \
-  | tar x -C /opt/
-#  && ln -s /opt/spark-$SPARK_VERSION-bin-hadoop$HADOOP_PROFILE /opt/spark
-#  && rm -rf /opt/spark/examples \
-#  && rm /opt/spark/lib/spark-examples*.jar
-
-RUN mv /opt/spark-$SPARK_VERSION-bin-hadoop$HADOOP_PROFILE /opt/spark
-
-ENV SPARK_HOME /opt/spark
-
-# RUN curl http://apache.belnet.be/spark/spark-1.5.2/spark-1.5.2-bin-hadoop2.6.tgz -o spark-1.5.2-bin-hadoop2.6.tgz
-# RUN tar xvfz spark-1.5.2-bin-hadoop2.6.tgz
+  | tar x -C /opt/  \
+  && ln -s /opt/spark-$SPARK_VERSION-bin-hadoop$HADOOP_PROFILE /opt/spark \
+  && rm -rf /opt/spark/examples \
+  && rm /opt/spark/lib/spark-examples*.jar
 
 ### ZEPPELIN ###
 
@@ -137,24 +114,23 @@ WORKDIR $ZEPPELIN_HOME
 RUN git checkout $ZEPPELIN_REPO_BRANCH
 
 RUN mvn clean \
-    install \
-    -pl '!flink,!ignite,!phoenix,!postgresql,!tajo,!hive,!cassandra,!lens,!kylin' \
-    -Phadoop-$HADOOP_PROFILE \
-    -Dhadoop.version=$HADOOP_VERSION \
-    -Pspark-$SPARK_PROFILE \
-    -Dspark.version=$SPARK_VERSION \
-    -Ppyspark \
-    -Dscala.version=$SCALA_VERSION \
-    -Dscala.binary.version=$SCALA_BINARY_VERSION \
-    -Dmaven.findbugs.enable=false \
-    -Drat.skip=true \
-    -Dcheckstyle.skip=true \
-    -DskipTests \
-    "$@"
+  install \
+  -pl '!flink,!ignite,!phoenix,!postgresql,!tajo,!hive,!cassandra,!lens,!kylin' \
+  -Phadoop-$HADOOP_PROFILE \
+  -Dhadoop.version=$HADOOP_VERSION \
+  -Pspark-$SPARK_PROFILE \
+  -Dspark.version=$SPARK_VERSION \
+  -Ppyspark \
+  -Dscala.version=$SCALA_VERSION \
+  -Dscala.binary.version=$SCALA_BINARY_VERSION \
+  -Dmaven.findbugs.enable=false \
+  -Drat.skip=true \
+  -Dcheckstyle.skip=true \
+  -DskipTests
 
 # Temporary fix to deal with conflicting akka provided jackson jars.
-# RUN rm zeppelin-server/target/lib/jackson-*
-# RUN rm zeppelin-zengine/target/lib/jackson-*
+RUN rm zeppelin-server/target/lib/jackson-*
+RUN rm zeppelin-zengine/target/lib/jackson-*
 
 COPY ./resources/datalayer-cli-colors.sh $ZEPPELIN_HOME/bin/datalayer-cli-colors.sh
 COPY ./resources/datalayer-echo-header.sh $ZEPPELIN_HOME/bin/datalayer-echo-header.sh
@@ -175,7 +151,6 @@ COPY ./webapp $ZEPPELIN_HOME/zeppelin-web/dist/
 
 RUN mkdir /notebook
 ADD notebook/tutorial /notebook/tutorial
-ADD notebook/r-tutorial /notebook/r-tutorial
 
 # Don't add interpreter.json @see https://github.com/datalayer/zeppelin-docker/issues/1
 # COPY ./resources/interpreter.json $ZEPPELIN_HOME/conf/interpreter.json
