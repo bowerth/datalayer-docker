@@ -115,7 +115,7 @@ RUN git checkout $ZEPPELIN_REPO_BRANCH
 
 RUN mvn clean \
   install \
-  -pl '!flink,!ignite,!phoenix,!postgresql,!tajo,!hive,!cassandra,!lens,!kylin' \
+  -pl '!cassandra,!elasticsearch,!flink,!hive,!ignite,!kylin,!lens,!phoenix,!postgresql,!tajo' \
   -Phadoop-$HADOOP_PROFILE \
   -Dhadoop.version=$HADOOP_VERSION \
   -Pspark-$SPARK_PROFILE \
